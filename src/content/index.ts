@@ -54,6 +54,19 @@ overlayDiv.style.border = "0";
 overlayDiv.style.backgroundColor = "#FFFFFF"; // You can adjust the background color and opacity
 overlayDiv.style.zIndex = "9999999999999999"; // Set a high z-index value
 
+// Center the button at the bottom
+button.style.position = "absolute";
+button.style.bottom = "20px"; // Adjust the distance from the bottom
+button.style.left = "50%";
+button.style.transform = "translateX(-50%)";
+
+// Add click event listener to the button
+button.addEventListener("click", () => {
+  // Remove the overlayDiv and its children
+  document.body.removeChild(overlayDiv);
+});
+
+
 // Append the div to the document body
 overlayDiv.appendChild(button)
 document.body.appendChild(overlayDiv);
