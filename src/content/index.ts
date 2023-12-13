@@ -1,41 +1,9 @@
-// adds a dog image
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  const dogImg: HTMLImageElement = document.createElement("img");
-  dogImg.src = msg;
-  document.body.appendChild(dogImg);
-});
-
-// adds a word count
-const article: HTMLElement | null = document.querySelector("article");
-
-// `document.querySelector` may return null if the selector doesn't match anything.
-if (article) {
-  const text: string | null = article.textContent;
-  const wordMatchRegExp: RegExp = /[^\s]+/g; // Regular expression
-  const words: IterableIterator<RegExpMatchArray> | undefined =
-    text?.matchAll(wordMatchRegExp);
-  // matchAll returns an iterator, convert to array to get word count
-  const wordCount: number = words ? [...words].length : 0;
-  const readingTime: number = Math.round(wordCount / 200);
-  const badge: HTMLParagraphElement = document.createElement("p");
-  // Use the same styling as the publish information in an article's header
-  badge.classList.add("color-secondary-text", "type--caption");
-  badge.textContent = `⏱️ ${readingTime} min read`;
-
-  // Support for API reference docs
-  const heading: HTMLHeadingElement | null = article.querySelector("h1");
-  // Support for article docs with date
-  const date: any = article.querySelector("time")?.parentNode;
-
-  (date ?? heading)?.insertAdjacentElement("afterend", badge);
-}
-
 // add an element that covers the entire page
 const overlayDiv: HTMLDivElement = document.createElement("div");
-const button: HTMLButtonElement = document.createElement("button")
+const button: HTMLButtonElement = document.createElement("button");
 
 // set the button's text
-button.textContent = "click me"
+button.textContent = "click me";
 
 // Set the style to cover the entire page
 overlayDiv.style.position = "fixed";
@@ -61,12 +29,15 @@ button.style.left = "50%";
 button.style.transform = "translateX(-50%)";
 
 // Add click event listener to the button
-button.addEventListener("click", () => {
-  // Remove the overlayDiv and its children
-  document.body.removeChild(overlayDiv);
-});
+const addButton = () => {
+  button.addEventListener("click", () => {
+    // Remove the overlayDiv and its children
+    document.body.removeChild(overlayDiv);
+  });
 
+  overlayDiv.appendChild(button);
+};
 
 // Append the div to the document body
-overlayDiv.appendChild(button)
+setTimeout(addButton, 4000);
 document.body.appendChild(overlayDiv);
