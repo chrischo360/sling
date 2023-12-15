@@ -12,8 +12,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://youtube.com/*",
-        "https://instagram.com/*",
+        "https://www.youtube.com/*",
+        "https://www.instagram.com/*",
         "https://example.com/*",
         "https://calnewport.com/*"
       ],
